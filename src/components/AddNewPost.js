@@ -23,10 +23,9 @@ const AddNewPost = () => {
 
     return(
         <>
-            <Button onClick={onOpen} size="sm" colorScheme="telegram">
+            <Button onClick={onOpen} size="sm" color="#f3f3f3" bg="#74adf2">
                 Add New Post
             </Button>
-
             <Modal onClose={onClose} isOpen={isOpen} isCentered={true}>
                 <ModalOverlay>
                     <ModalContent>
@@ -41,7 +40,7 @@ const AddNewPost = () => {
                         <ModalFooter>
                             <HStack spacing={4}>
                                 <Button onClick={onClose} size="sm">Close</Button>
-                                <Button onClick={handleSubmit} colorScheme="telegram" disabled={!title.trim()} isLoading={isSaving}>Save</Button>
+                                <Button onClick={handleSubmit} color="#f3f3f3" bg="#74adf2" disabled={!title.trim()} isLoading={isSaving}>Save</Button>
                             </HStack>
                         </ModalFooter>
                     </ModalContent>

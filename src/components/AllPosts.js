@@ -1,13 +1,11 @@
-import { Container, VStack } from '@chakra-ui/react';
+import { Container, StackDivider, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import db from '../lib/firebase';
 import Post from './Post';
 
 const AllPosts = () => {
 const [posts,setPosts] = useState([]);
-const [singlePost, setSinglePost]= useState("")
-    
-   
+
 useEffect(()=>{
     
     db.collection("posts")
@@ -46,19 +44,19 @@ useEffect(()=>{
 
 
 return(
-    
-       
-        <Container maxW="75%" maxH="sm" centerContent p={8} >
-            <VStack spacing={8} w="100%" >
-                {posts.map((post)=>(
-                    <>
-                        <Post post={post} key={post.id}/>
-                    </>
-                ))}  
-            </VStack>
-        </Container>
-        
-       
-)
+    <Container 
+    bg="#f0f0f0" 
+    maxW={[600,700,800]} 
+    centerContent p={6}
+     >
+        <VStack spacing={6} w="100%" divider={<StackDivider p={1} borderColor="gray.300" />}>
+            {posts.map((post)=>(
+                <>
+                    <Post post={post} key={post.id}/>
+                </>
+            ))}  
+        </VStack>
+    </Container>
+    )
 }
 export default AllPosts;

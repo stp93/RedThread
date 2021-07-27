@@ -3,7 +3,6 @@ import { BrowserRouter, Switch } from "react-router-dom";
 import AllPosts from "../../components/AllPosts";
 import Navbar from "../../components/Navbar";
 
-
 const App = () => {
     // const [posts,setPosts] = useState([]);
     // useEffect(()=>{
@@ -47,6 +46,7 @@ const App = () => {
       <BrowserRouter >
       <Navbar/>
       <AllPosts/>
+      
         <Switch>
             {/* <Route exact path="/" component={AllPosts}/>
             <Route exact path="/posts" component={Post}/> */}

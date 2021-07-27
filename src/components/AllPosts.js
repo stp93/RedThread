@@ -1,11 +1,11 @@
 import { Container, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import db from '../lib/firebase';
 import Post from './Post';
 
 const AllPosts = () => {
 const [posts,setPosts] = useState([]);
+const [singlePost, setSinglePost]= useState("")
     
    
 useEffect(()=>{
@@ -45,23 +45,20 @@ useEffect(()=>{
 }, []);
 
 
-
 return(
-    <Router>
+    
        
-    <Container maxW="75%" maxH="sm" centerContent p={8} >
+        <Container maxW="75%" maxH="sm" centerContent p={8} >
             <VStack spacing={8} w="100%" >
                 {posts.map((post)=>(
-                    <Switch>
-                        <Route key={post.id} path={post.path} exact={post.exact}><Post post={post} key={post.id}/></Route>
-                    </Switch>
-                    
-                ))}
-                    
+                    <>
+                        <Post post={post} key={post.id}/>
+                    </>
+                ))}  
             </VStack>
         </Container>
         
-        </Router>
+       
 )
 }
 export default AllPosts;

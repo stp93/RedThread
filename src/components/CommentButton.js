@@ -2,46 +2,49 @@ import { Button, FormControl, FormLabel, HStack, Modal, ModalBody, ModalCloseBut
 import React, { useState } from "react";
 import db from "../lib/firebase";
 
-const AddNewPost = () => {
+const CommentButton = ({post}) => {
+    const [comment, setComment] = useState("");
     const {isOpen, onOpen, onClose} = useDisclosure();
-    const [title, setTitle] = useState("");
-    const [isSaving] = useState(false);
+   const [isSaving] = useState(false);
+   
 
-    const handleSubmit = async () => {
-        const date = new Date();
+    const handleSubmit = async () =>{
+        
+        const date = new Date()
+        
 
-        await db.collection("posts").add({
-            title,
-            upVotesCount: 0,
-            downVotesCount: 0,
-            createdAt: date.toUTCString(),
-            updatedAt: date.toUTCString()
-        });
+        await db.collection("posts").doc(post.id).collection("comments").add({
+            comment,
+            date: date.toUTCString(),
+        })
         onClose();
-        setTitle("");
-    };
+        setComment("");
+        console.log(comment)
+    }
+
+   
 
     return(
         <>
             <Button onClick={onOpen} size="sm" colorScheme="telegram">
-                Add New Post
+                Add Comment
             </Button>
 
             <Modal onClose={onClose} isOpen={isOpen} isCentered={true}>
                 <ModalOverlay>
                     <ModalContent>
-                        <ModalHeader>Add New Post</ModalHeader>
+                        <ModalHeader>Add New Comment</ModalHeader>
                         <ModalCloseButton/>
                         <ModalBody>
-                            <FormControl id="post-title">
-                                <FormLabel>Post Title</FormLabel>
-                                <Textarea type="post-title" size="xl" value={title} onChange={(e) => setTitle(e.target.value)}/>
+                            <FormControl id="post-comment">
+                                <FormLabel>Whatever dick thing you have to say</FormLabel>
+                                <Textarea type="post-comment" size="xl" value={comment} onChange={(e) => setComment(e.target.value)}/>
                             </FormControl>
                         </ModalBody>
                         <ModalFooter>
                             <HStack spacing={4}>
                                 <Button onClick={onClose} size="sm">Close</Button>
-                                <Button onClick={handleSubmit} colorScheme="telegram" disabled={!title.trim()} isLoading={isSaving}>Save</Button>
+                                <Button onClick={handleSubmit} colorScheme="telegram"  isLoading={isSaving}>Save</Button>
                             </HStack>
                         </ModalFooter>
                     </ModalContent>
@@ -49,5 +52,6 @@ const AddNewPost = () => {
             </Modal>
         </>
     )
+
 }
-export default AddNewPost;
+export default CommentButton
